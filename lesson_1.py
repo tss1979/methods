@@ -41,7 +41,6 @@ class Parse5Ka:
             while next_url:
                 if next_url == start_url:
                     response = self._get_response(start_url + f'?categories={code}')
-                    print(start_url + f'?categories={code}')
                     data = response.json()
                     next_url = data['next']
                 else:
