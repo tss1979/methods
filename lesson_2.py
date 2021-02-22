@@ -58,10 +58,10 @@ class MagnitParse:
         string_till, date_till, month_till = p[1].text.split(' ')
         if y == 1:
             date_from = datetime.date(datetime.datetime.now().year, month[month_from], int(date_from))
-            return date_from
+            return str(date_from)
         elif y == 2:
             date_till = datetime.date(datetime.datetime.now().year, month[month_till], int(date_till))
-            return date_till
+            return str(date_till)
         else:
             raise ValueError
 
