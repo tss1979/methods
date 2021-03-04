@@ -23,3 +23,5 @@ class GbParsePipeline(object):
         collection = self.mongobase[spider.name]
         collection.insert_one(item)
         return item
+
+
