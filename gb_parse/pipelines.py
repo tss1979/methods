@@ -11,17 +11,34 @@ import pymongo
 from gb_parse import settings
 from scrapy.exceptions import DropItem
 from pymongo import MongoClient
+from scrapy.pipelines.images import ImagesPipeline
+from scrapy import Request
 
 
-class GbParsePipeline(object):
-
-    def __init__(self):
-        client = MongoClient('localhost', 27017)
-        self.mongobase = client.autoyoula
-
+class GbParsePipeline:
     def process_item(self, item, spider):
-        collection = self.mongobase[spider.name]
-        collection.insert_one(item)
         return item
 
 
+class GbParseMongoPipeline:
+    def __init__(self):
+        client = MongoClient()
+        self.db = client["gb_parse"]
+
+    def process_item(self, item, spider):
+        self.db[type(item).__name__].insert_one(item)
+        return item
+
+
+class GbImageDownloadPipeline(ImagesPipeline):
+    def get_media_requests(self, item, info):
+        for url in item.get("photos", []):
+            yield Request(url)
+        image = item["data"].get("profile_pic_url") or item["data"].get("display_url")
+        if image:
+            yield Request(image)
+
+    def item_completed(self, results, item, info):
+        if results:
+            item["photos"] = [itm[1] for itm in results]
+        return item

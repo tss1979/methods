@@ -1,10 +1,9 @@
 from scrapy import Selector
 from scrapy.loader import ItemLoader
 from itemloaders.processors import TakeFirst, MapCompose, Join
+from gb_parse.items import AutoyoulaItem, HhItem
 
 import re
-from gb_parse.items import AutoyoulaItem
-from gb_parse.items import HhItem
 import urllib.parse as u
 
 
@@ -58,3 +57,7 @@ class HhLoader(ItemLoader):
     salary_out = Join()
     author_url_out = TakeFirst()
     description_out = Join()
+
+
+
+

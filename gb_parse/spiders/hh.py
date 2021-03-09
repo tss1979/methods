@@ -30,8 +30,8 @@ class HhSpider(scrapy.Spider):
         yield from self._get_follow(response, self._xpaths_selectors['pagination'], self.parse_page)
 
     def parse_page(self, response, *args, **kwargs):
-
         yield from self._get_follow(response, self._xpaths_selectors['vacancy'], self.parse_vac)
+
 
     def parse_vac(self, response):
         loader = HhLoader(response=response)
