@@ -17,7 +17,6 @@ class AutoyoulaItem(scrapy.Item):
     author_url = scrapy.Field()
 
 
-
 class HhItem(scrapy.Item):
     # define the fields for your item here like:
     _id = scrapy.Field()
@@ -42,4 +41,19 @@ class InstaTag(Insta):
 
 
 class InstaPost(Insta):
+    pass
+
+
+class InstaUser(Insta):
+    pass
+
+
+class InstaFollower(Insta):
+    user_id = scrapy.Field()
+    pass
+
+
+
+class InstaFollowed(Insta):
+    user_id = scrapy.Field()
     pass
